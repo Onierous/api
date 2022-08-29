@@ -7,9 +7,9 @@ const receipt = mongoose.model('receipt'); //creates a mongoose instance of the 
 //create
 exports.newReceipt = function (request, response) {
 
-    var newTicket = new ticket(request.body); //Creates an instance of the Mongoose ticketSchema type using the request body
+    var newReceipt = new receipt(request.body); //Creates an instance of the Mongoose receiptSchema type using the request body
 
-    newTicket.save(function (err, task) { //Performs the Mongoose document instance save function while passing in a function 
+    newReceipt.save(function (err, task) { //Performs the Mongoose document instance save function while passing in a function 
         if (err) //The function checks for an error
             response.send(err); //If there is an error it sends it back
         response.json(task); //If there isn't an error it returns the document as JSON?
@@ -22,17 +22,17 @@ exports.listReceipts = function (request, response) {
 
     console.log(Object.keys(request.query));
 
-    //this part of the code is for a generic find with nothing specified. It returns all tickets
+    //this part of the code is for a generic find with nothing specified. It returns all receipts
     if (Object.keys(request.query).length === 0 && request.query.constructor === Object) {
 
-        ticket.find() //accesses the DB using this instance of the ticket schema
+        receipt.find() //accesses the DB using this instance of the receipt schema
             .then(function (dbResponse) { //waits for data or an error
                 response.send(dbResponse) //sends the data or error back to the caller
             });
 
     } else {
 
-        ticket.find({ _id: request.query})
+        receipt.find({ _id: request.query})
             .then(function (dbResponse) {
                 response.send(dbResponse);
             });
@@ -43,10 +43,10 @@ exports.listReceipts = function (request, response) {
 exports.updateReceipt = function (request, response) {
 
     console.log(request.query);
-    
+
     var query = request.query;
 
-    ticket.findOneAndUpdate({_id: query}, request.body, {new: true})
+    receipt.findOneAndUpdate({_id: query}, request.body, {new: true})
         .then(function (dbResponse) { //waits for data or an error
             response.send(dbResponse) //sends the data or error back to the caller
         });
@@ -54,9 +54,9 @@ exports.updateReceipt = function (request, response) {
 };
 
 //delete
-exports.deleteTicket = function (request, response) {
+exports.deleteReceipt = function (request, response) {
 
-    ticket.remove(request.query)
+    receipt.remove(request.query)
         .then(function (dbResponse) { //waits for data or an error
             response.send(dbResponse) //sends the data or error back to the caller
         });
