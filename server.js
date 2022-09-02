@@ -3,8 +3,8 @@ var express = require('express'),
     port = process.env.PORT || 8765; //"process.env.PORT" tells the program that if the depolyment server requires a specific port, use that else use the specified one.
 
 //morgan is a middleware for logging requests to your servers console
-var morgan = require('morgan');
-app.use(morgan('dev'));
+//var morgan = require('morgan');
+//app.use(morgan('dev'));
 
 //Not quite sure what body-parser does, but I imagine from the name it's a good thing to have
 var bodyParser = require('body-parser');
@@ -23,14 +23,13 @@ var allowCrossDomain = function (req, res, next) {
 }
 app.use(allowCrossDomain);
 
-const dbConfig = require('./dbconfig.js');
+//const dbConfig = require('./dbconfig.js');
 
 //Mongoose is a middleware handler for talking to MongoDB
 var mongoose = require('mongoose'),
-    Task = require('./models/Model'),
+    Task = require('./Models/models'),
     receipt = mongoose.model('receipt');
 
-mongoose.set('useUnifiedTopology', true);
 
 mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true }, function (err) {
     if (err) {
@@ -40,7 +39,7 @@ mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true }, fu
     }
 });
 
-var routes = require('./routes/Routes'); //importing route file
+var routes = require('./Routes/routes'); //importing route file
 routes(app); //this line passes the instance of Express into the routes file so the file can use it locally to define database operations on each route
 
 app.use(function (req, res) {

@@ -2,12 +2,12 @@
 
 module.exports = function (app) {
 
-    var ticket = require('../controllers/Controller')
+    var reciept = require('../Controllers/controller')
 
     app.route('/reciept')
         .get(reciept.listReceipts)
-        .post(ticket.newReceipt)
-        .put(ticket.updateReceipt)
-        .delete(ticket.deleteReceipt);
+        .post(reciept.newReceipt)
+        .put(reciept.updateReceipt)
+        .delete(reciept.deleteReceipt);
 
 };
